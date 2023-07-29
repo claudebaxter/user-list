@@ -10,6 +10,11 @@ type User = {
   image: string;
 };
 
+type FormattedUser = User & {
+  friendNames: string[];
+  highestRankingFriend: string | null;
+};
+
 export default function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
@@ -29,6 +34,25 @@ export default function App() {
     fetchUsersData();
   }, []);
 
+  function formatUser(user: User): FormattedUser {
+    const friendNames = user.friends.map((friendId) => {
+      const friend = users.find((u) => u.id === friendId);
+      return friend ? friend.name : 'Unknown Friend';
+    });
+    
+    const highestRankingFriend = user.friends.reduce((highestFriendId, friendId) => {
+      const friend = users.find((u) => u.id === friendId);
+      const highestFriend = users.find((u) => u.id === highestFriendId);
+      return (!highestFriendId || (friend && friend.rank > (highestFriend?.rank || -Infinity))) ? friendId : highestFriendId;
+    }, '');
+    
+    return {
+      ...user,
+      friendNames,
+      highestRankingFriend,
+    };
+  }
+  
   function handleUserClick(userId: string) {
     setSelectedUser(userId);
   }
@@ -37,7 +61,7 @@ export default function App() {
     return true;
   }
 
-  const filteredUsers = users.filter(filterUsers);
+  const filteredUsers = users.filter(filterUsers).map(formatUser);
 
   return (
     <>
@@ -61,20 +85,22 @@ export default function App() {
 }
 
 type UserProps = {
-  user: User;
+  user: FormattedUser; 
   onClick: (userId: string) => void;
   isSelected: boolean;
 };
 
 function User({ user, onClick, isSelected }: UserProps) {
-  const { id, rank, name, email, friends, image } = user;
+  const { id, name, email, friendNames, rank } = user;
 
   return (
     <div onClick={() => onClick(id)} className={`user ${isSelected ? 'selected' : ''}`}>
-      <img src={image} alt={name} />
+      <img src={user.image} alt={name} />
       <div>
         <h2>{name}</h2>
         <p>Email: {email}</p>
+        <p>Friends: {friendNames.join(', ')}</p>
+        <p>Rank: {rank}</p>
       </div>
     </div>
   );
