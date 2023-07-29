@@ -34,10 +34,6 @@ export default function App() {
     fetchUsersData();
   }, []);
 
-  useEffect(() => {
-    console.log('Selected user:', selectedUser);
-  }, [selectedUser]);
-
   function formatUser(user: User): FormattedUser {
     const friendNames = user.friends.map((friendId) => {
       const friend = users.find((u) => u.id === friendId);
@@ -59,7 +55,6 @@ export default function App() {
   
   function handleUserClick(userId: string) {
     setSelectedUser(userId);
-    console.log('User clicked:', userId);
   }
 
   function filterUsers(user: User): boolean {
