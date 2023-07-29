@@ -58,7 +58,22 @@ export default function App() {
   }
 
   function filterUsers(user: User): boolean {
-    return true;
+    if (!searchQuery.trim()) {
+      return true;
+    }
+
+    const query = searchQuery.toLowerCase().trim();
+
+    const isMatch = (
+      user.name.toLowerCase().includes(query) ||
+      user.id.toLowerCase().includes(query) || 
+      user.friends.some((friendId) => {
+        const friend = users.find((u) => u.id === friendId);
+        return friend ? friend.name.toLowerCase().includes(query) : false;
+      })
+    );
+
+    return isMatch;
   }
 
   const MemoizedUser = React.memo(User);
