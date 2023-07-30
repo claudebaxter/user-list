@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     async function fetchUsersData() {
       try {
-        const response = await fetch('https://gist.githubusercontent.com/claudebaxter/03ba51b04fe8a04f398bcbd1a0e7d45c/raw/36af91bea6013d7029b2b27a952b63c4591de16c/gistfile1.json');
+        const response = await fetch('https://gist.githubusercontent.com/claudebaxter/03ba51b04fe8a04f398bcbd1a0e7d45c/raw/1cd8a6e94d2bf56cc75161fe8a7bdbc9286c1fc6/gistfile1.json');
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -83,12 +83,13 @@ export default function App() {
   return (
     <>
       <input
+        className="input"
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search by name, ID, or friend's ID"
+        placeholder="Search Users..."
       />
-  
+    <div className="users-container">
       {filteredUsers.map((user) => (
         <MemoizedUser
           key={user.id}
@@ -97,6 +98,7 @@ export default function App() {
           isSelected={selectedUser === user.id}
         />
       ))}
+    </div>
     </>
   );
 }
@@ -112,12 +114,20 @@ function User({ user, onClick, isSelected }: UserProps) {
 
   return (
     <div onClick={() => onClick(id)} className={`user ${isSelected ? 'selected' : ''}`}>
-      <img src={user.image} alt={name} />
-      <div>
-        <h2>{name}</h2>
-        <p>Email: {email}</p>
-        <p>Friends: {friendNames.join(', ')}</p>
-        <p>Rank: {rank}</p>
+      
+      
+      <div className="info">
+        <img src={user.image} alt={name} />
+        <div className="name-email">
+          <p className="name">{name}</p>
+          <p>{email}</p>
+        </div>
+        <p className="rank">Rank: {rank}</p>
+        
+      </div>
+
+      <div className="friends">
+          <p>Friends: {friendNames.join(', ')}</p>
       </div>
     </div>
   );

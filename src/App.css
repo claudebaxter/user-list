@@ -1,0 +1,71 @@
+.input {
+  display: block;
+  margin: 65px auto;
+  width: 700px;
+  height: 45px;
+  border-radius: 6px;
+  border: 1px solid gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  padding-left: 30px;
+  font-weight: bold;
+}
+
+.users-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  position: relative; 
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px 20px 0 20px;
+  width: 550px;
+  border-top: 1px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.user img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+
+.user .info {
+  display: flex;
+  flex: 1; 
+}
+
+.user .info p {
+  margin: 0;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.user .info .name-email {
+  display: flex;
+  flex-direction: column; 
+}
+
+.user .info .rank {
+  position: absolute;
+  top: 10px;
+  right: 45px;
+  font-weight: bold;
+}
+
+.friends {
+  font-weight: bold;
+}
+
+.user .info .friends {
+  margin-top: 10px;
+}
