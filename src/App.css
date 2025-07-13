@@ -1,7 +1,9 @@
 .input {
   display: block;
   margin: 65px auto;
-  width: 700px;
+  width: 90%;
+  max-width: 700px;
+  min-width: 220px;
   height: 45px;
   border-radius: 6px;
   border: 1px solid gray;
@@ -12,7 +14,7 @@
 
 .users-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   grid-gap: 20px;
   justify-content: center;
   max-width: 1000px;
@@ -22,13 +24,15 @@
 .user {
   display: flex;
   flex-direction: column;
-  position: relative; 
+  position: relative;
   border: 1px solid #ccc;
-  margin: 10px;
+  margin: 10px auto;
   padding: 10px 20px 0 20px;
-  width: 550px;
+  width: 100%;
+  max-width: 550px;
   border-top: 1px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: #fff;
 }
 
 .user img {
@@ -39,7 +43,7 @@
 
 .user .info {
   display: flex;
-  flex: 1; 
+  flex: 1;
 }
 
 .user .info p {
@@ -52,7 +56,7 @@
 
 .user .info .name-email {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 .user .info .rank {
@@ -68,4 +72,22 @@
 
 .user .info .friends {
   margin-top: 10px;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 600px) {
+  .users-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 2 columns, max width */
+@media (min-width: 1000px) {
+  .users-container {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1200px;
+  }
+  .user {
+    max-width: 550px;
+  }
 }
